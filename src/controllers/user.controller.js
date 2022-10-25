@@ -6,7 +6,8 @@ const findAll = async (req, res) => {
 };
 
 const insert = async (req, res) => {
-  const response = await userService.insert();
+  const userPayload = req.body;
+  const response = await userService.insert(userPayload);
   return res.status(201).json(response);
 };
 
