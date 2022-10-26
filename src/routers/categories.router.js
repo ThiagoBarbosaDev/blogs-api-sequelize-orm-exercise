@@ -6,6 +6,6 @@ const router = express.Router();
 
 router.route('/')
   .post(validateToken, categoriesController.insert)
-  .get(categoriesController.findAll);
+  .get(validateToken, categoriesController.findAll);
 
 module.exports = router;
