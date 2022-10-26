@@ -5,6 +5,13 @@ const findAll = async (req, res) => {
   return res.status(200).json(response);
 };
 
+const find = async (req, res) => {
+  const { id } = req.params;
+  const response = await postService.find(id);
+  return res.status(200).json(response);
+};
+
 module.exports = {
   findAll,
+  find,
 };

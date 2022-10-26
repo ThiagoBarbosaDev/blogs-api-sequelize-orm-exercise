@@ -1,13 +1,28 @@
+const { validatePost } = require('../controllers/validations/validateBlogPost');
 const { BlogPost, User, Category } = require('../models');
 
-// const result = await Post.findAll({
-//   where: { userId: 1 },
-//   include: [{ model: User, as: 'author' }],
-// });
+const find = async (id) => {
+  await validatePost(id);
+  const [result] = await BlogPost.findAll({
+      where: { id },
+    include: [
+      { 
+        model: User, 
+        as: 'user', 
+        attributes: { exclude: ['password'] },
+      },
+      { 
+        model: Category,
+        as: 'categories',
+        through: { attributes: [] },
+      },
+    ],
+  });
+  return result;
+};
 
 const findAll = async () => {
   const result = await BlogPost.findAll({
-    where: { userId: 1 },
     include: [
       { 
         model: User, 
@@ -26,4 +41,5 @@ const findAll = async () => {
 
 module.exports = {
   findAll,
+  find,
 };
