@@ -2,6 +2,7 @@ const { userService } = require('../services');
 
 const findAll = async (req, res) => {
   const response = await userService.findAll();
+  // console.log('CONTROLLER', req.headers);
   return res.status(200).json(response);
 };
 

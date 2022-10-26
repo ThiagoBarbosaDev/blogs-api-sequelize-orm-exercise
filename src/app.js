@@ -1,6 +1,6 @@
 require('express-async-errors');
 const express = require('express');
-// const { validateToken } = require('./middlewares/auth.middleware');
+const { validateToken } = require('./middlewares/auth.middleware');
 const { errorCodes } = require('./utils/errorCodes');
 
 // ...
@@ -10,14 +10,14 @@ app.use(express.json());
 const { loginRoutes, userRoutes, postRoutes, categoriesRoutes } = require('./routers');
 
 app.use('/login', loginRoutes);
-// app.use(validateToken);
 app.use('/user', userRoutes);
+// app.use(validateToken);
 app.use('/post', postRoutes);
 app.use('/categories', categoriesRoutes);
 
 app.use(async (error, req, res, _next) => {
-  console.log(error);
   const { type, message } = error;
+  console.log('MIDDLEWARE DE ERRO', errorCodes[type], message);
   return res.status(errorCodes[type]).json({ message });
 });
 
