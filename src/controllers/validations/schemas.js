@@ -3,7 +3,7 @@ const { handleJoiLoginValidation,
   handleJoiEmailValidation,
   handleJoiDisplayNameValidation, 
   handleJoiPasswordValidation, 
-  throwError} = require('../../utils/errorHelpers');
+  throwError } = require('../../utils/errorHelpers');
 
 const loginSchema = Joi.object({
   email: Joi.string().required(),
