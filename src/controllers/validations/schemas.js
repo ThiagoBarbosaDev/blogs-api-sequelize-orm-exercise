@@ -2,7 +2,8 @@ const Joi = require('joi');
 const { handleJoiLoginValidation, 
   handleJoiEmailValidation,
   handleJoiDisplayNameValidation, 
-  handleJoiPasswordValidation } = require('../../utils/errorHelpers');
+  handleJoiPasswordValidation, 
+  throwError} = require('../../utils/errorHelpers');
 
 const loginSchema = Joi.object({
   email: Joi.string().required(),
@@ -21,6 +22,9 @@ const emailSchema = Joi.string().regex(emailRegex).required().error(
   handleJoiEmailValidation,
 );
 
+const nameSchema = Joi
+  .string().required().error(() => { throw throwError('FIELD_NOT_FOUND', '"name" is required'); });
+
 const userPostSchema = Joi.object({
   password: passwordSchema,
   displayName: displayNameSchema,
@@ -30,4 +34,5 @@ const userPostSchema = Joi.object({
 module.exports = {
   loginSchema,
   userPostSchema,
+  nameSchema,
 };
