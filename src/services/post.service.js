@@ -1,4 +1,4 @@
-const { BlogPost, User, PostCategory, Category } = require('../models');
+const { BlogPost, User, Category } = require('../models');
 
 // const result = await Post.findAll({
 //   where: { userId: 1 },
