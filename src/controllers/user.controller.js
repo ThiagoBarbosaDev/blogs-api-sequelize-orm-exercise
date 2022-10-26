@@ -2,7 +2,12 @@ const { userService } = require('../services');
 
 const findAll = async (req, res) => {
   const response = await userService.findAll();
-  // console.log('CONTROLLER', req.headers);
+  return res.status(200).json(response);
+};
+
+const find = async (req, res) => {
+  const { id } = req.params;
+  const response = await userService.find(id);
   return res.status(200).json(response);
 };
 
@@ -15,4 +20,5 @@ const insert = async (req, res) => {
 module.exports = {
   findAll,
   insert,
+  find,
 };

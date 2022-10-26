@@ -1,5 +1,4 @@
 require('dotenv').config();
-const { TokenExpiredError } = require('jsonwebtoken');
 const jwt = require('jsonwebtoken');
 const { throwError } = require('./errorHelpers');
 

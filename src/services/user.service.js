@@ -1,6 +1,7 @@
 const { userPostSchema } = require('../controllers/validations/schemas');
 const { validateUserAlreadyRegistered } = require('../controllers/validations/validateUser');
-const { User, Post } = require('../models');
+const { User } = require('../models');
+const { throwError } = require('../utils/errorHelpers');
 const { createToken } = require('../utils/jwt.util');
 
 const findAll = async () => {
@@ -12,12 +13,14 @@ const findAll = async () => {
   return dataWithoutPassword;
 };
 
-const find = async () => {
+const find = async (id) => {
   const result = await User.findAll({
-    where: { id: 1 },
-    include: [{ model: Post, as: 'post' }],
+    where: { id },
   });
-  return { type: null, message: 'USER-SERVICE', result };
+  console.log('foobar', result, !result);
+  if (!result.length) { throw throwError('USER_NOT_FOUND', 'User does not exist'); }
+  const { dataValues: { password, ...dataWithoutPassword } } = result[0];
+  return dataWithoutPassword;
 };
 
 const insert = async (userPayload) => {

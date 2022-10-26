@@ -1,6 +1,6 @@
 require('express-async-errors');
 const express = require('express');
-const { validateToken } = require('./middlewares/auth.middleware');
+// const { validateToken } = require('./middlewares/auth.middleware');
 const { errorCodes } = require('./utils/errorCodes');
 
 // ...

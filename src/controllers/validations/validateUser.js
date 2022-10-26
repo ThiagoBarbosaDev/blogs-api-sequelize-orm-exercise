@@ -6,7 +6,7 @@ const validateUser = async ({ email }) => {
     where: { email },
   });
   const userDoesNotExist = !result.length;
-  if (userDoesNotExist) { throw throwError('USER_NOT_FOUND', 'Invalid fields'); }
+  if (userDoesNotExist) { throw throwError('INVALID_USER_INPUT', 'Invalid fields'); }
 };
 
 const validateUserAlreadyRegistered = async ({ email }) => {
