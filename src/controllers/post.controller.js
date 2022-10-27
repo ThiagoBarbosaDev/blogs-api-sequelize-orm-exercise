@@ -19,8 +19,15 @@ const update = async (req, res) => {
   return res.status(200).json(response);
 };
 
+const findByQuery = async (req, res) => {
+  const { query } = req;
+  const result = await postService.findByQuery(query);
+  res.status(200).json(result);
+};
+
 module.exports = {
   findAll,
   find,
   update,
+  findByQuery,
 };

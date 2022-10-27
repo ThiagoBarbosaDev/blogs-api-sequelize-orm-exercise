@@ -1,7 +1,7 @@
 const { postPutSchema } = require('../controllers/validations/schemas');
 const { validatePost,
   validatePostAuthorization } = require('../controllers/validations/validateBlogPost');
-const { BlogPost, User, Category } = require('../models');
+const { BlogPost, User, Category, Sequelize } = require('../models');
 
 const find = async (id) => {
   await validatePost(id);
@@ -60,8 +60,30 @@ const update = async (id, payload, tokenEmail) => {
 //   "content": "The whole text for the blog post goes here in this key"
 // }
 
+const findByQuery = async ({ q: query }) => BlogPost.findAll(
+    { 
+      where: { 
+        [Sequelize.Op.or]: 
+          [{ title: { [Sequelize.Op.like]: `%${query}%` } }, 
+          { content: { [Sequelize.Op.like]: `%${query}%` } }] },
+      include: [
+        { 
+          model: User, 
+          as: 'user', 
+          attributes: { exclude: ['password'] },
+        },
+        { 
+          model: Category,
+          as: 'categories',
+          through: { attributes: [] },
+        },
+      ],
+     }, 
+  );
+
 module.exports = {
   findAll,
   find,
   update,
+  findByQuery,
 };

@@ -4,6 +4,9 @@ const { validateToken } = require('../middlewares/auth.middleware');
 
 const router = express.Router();
 
+router.route('/search')
+  .get(validateToken, postController.findByQuery);
+
 router.route('/:id')
   .get(validateToken, postController.find)
   .put(validateToken, postController.update);
