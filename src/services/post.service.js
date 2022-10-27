@@ -1,7 +1,7 @@
 const { postPutSchema } = require('../controllers/validations/schemas');
-const { validatePost } = require('../controllers/validations/validateBlogPost');
+const { validatePost,
+  validatePostAuthorization } = require('../controllers/validations/validateBlogPost');
 const { BlogPost, User, Category } = require('../models');
-const { throwError } = require('../utils/errorHelpers');
 
 const find = async (id) => {
   await validatePost(id);
@@ -45,9 +45,7 @@ const update = async (id, payload, tokenEmail) => {
   const { title, content } = payload;
   const sanitizedPayload = { title, content };
   postPutSchema.validate(sanitizedPayload);
-  const { dataValues: { user: { dataValues: { email } } } } = await find(id);
-  const postDoesNotBelongToUser = tokenEmail !== email;
-  if (postDoesNotBelongToUser) { throw throwError('UNAUTHORIZED_USER', 'Unauthorized user'); }
+  await validatePostAuthorization(id, tokenEmail);
   await BlogPost.update({ ...sanitizedPayload }, {
     where: {
       id,

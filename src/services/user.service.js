@@ -17,7 +17,6 @@ const find = async (id) => {
   const result = await User.findAll({
     where: { id },
   });
-  console.log('foobar', result, !result);
   if (!result.length) { throw throwError('USER_NOT_FOUND', 'User does not exist'); }
   const { dataValues: { password, ...dataWithoutPassword } } = result[0];
   return dataWithoutPassword;
