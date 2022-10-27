@@ -17,7 +17,6 @@ app.use('/categories', categoriesRoutes);
 
 app.use(async (error, req, res, _next) => {
   const { type, message } = error;
-  console.log('MIDDLEWARE DE ERRO', type, errorCodes[type], message, error);
   return res.status(errorCodes[type]).json({ message });
 });
 

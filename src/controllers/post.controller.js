@@ -32,10 +32,18 @@ const destroy = async (req, res) => {
   return res.status(204).end();
 };
 
+const insert = async (req, res) => {
+  const payload = req.body;
+  const { token } = req;
+  const result = await postService.insert(payload, token);
+  return res.status(201).json(result);
+};
+
 module.exports = {
   findAll,
   find,
   update,
   findByQuery,
   destroy,
+  insert,
 };

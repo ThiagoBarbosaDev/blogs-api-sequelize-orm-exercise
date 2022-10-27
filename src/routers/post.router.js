@@ -13,7 +13,7 @@ router.route('/:id')
   .delete(validateToken, postController.destroy);
 
 router.route('/')
-  // .post(validateToken, postController.insert)
+  .post(validateToken, postController.insert)
   .get(validateToken, postController.findAll);
 
 module.exports = router;
