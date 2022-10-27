@@ -11,7 +11,16 @@ const find = async (req, res) => {
   return res.status(200).json(response);
 };
 
+const update = async (req, res) => {
+  const { id } = req.params;
+  const payload = req.body;
+  const { email } = req.token;
+  const response = await postService.update(id, payload, email);
+  return res.status(200).json(response);
+};
+
 module.exports = {
   findAll,
   find,
+  update,
 };

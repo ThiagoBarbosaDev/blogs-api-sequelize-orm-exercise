@@ -31,8 +31,14 @@ const userPostSchema = Joi.object({
   email: emailSchema,
 });
 
+const postPutSchema = Joi.object({
+  title: Joi.string().required(),
+  content: Joi.string().required(),
+}).error(() => { throw throwError('FIELD_NOT_FOUND', 'Some required fields are missing'); });
+
 module.exports = {
   loginSchema,
   userPostSchema,
   nameSchema,
+  postPutSchema,
 };

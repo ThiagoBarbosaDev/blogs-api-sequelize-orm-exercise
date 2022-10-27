@@ -5,7 +5,8 @@ const { validateToken } = require('../middlewares/auth.middleware');
 const router = express.Router();
 
 router.route('/:id')
-  .get(validateToken, postController.find);
+  .get(validateToken, postController.find)
+  .put(validateToken, postController.update);
 
 router.route('/')
   .get(validateToken, postController.findAll);

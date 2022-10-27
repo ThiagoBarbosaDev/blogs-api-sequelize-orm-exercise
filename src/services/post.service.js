@@ -1,5 +1,7 @@
+const { postPutSchema } = require('../controllers/validations/schemas');
 const { validatePost } = require('../controllers/validations/validateBlogPost');
 const { BlogPost, User, Category } = require('../models');
+const { throwError } = require('../utils/errorHelpers');
 
 const find = async (id) => {
   await validatePost(id);
@@ -39,7 +41,29 @@ const findAll = async () => {
   return result;
 };
 
+const update = async (id, payload, tokenEmail) => {
+  const { title, content } = payload;
+  const sanitizedPayload = { title, content };
+  postPutSchema.validate(sanitizedPayload);
+  const { dataValues: { user: { dataValues: { email } } } } = await find(id);
+  const postDoesNotBelongToUser = tokenEmail !== email;
+  if (postDoesNotBelongToUser) { throw throwError('UNAUTHORIZED_USER', 'Unauthorized user'); }
+  await BlogPost.update({ ...sanitizedPayload }, {
+    where: {
+      id,
+    },
+  });
+  const response = await find(id);
+  return response;
+};
+
+// {
+//   "title": "Latest updates, August 1st",
+//   "content": "The whole text for the blog post goes here in this key"
+// }
+
 module.exports = {
   findAll,
   find,
+  update,
 };

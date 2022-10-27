@@ -9,6 +9,14 @@ const validateUser = async ({ email }) => {
   if (userDoesNotExist) { throw throwError('INVALID_USER_INPUT', 'Invalid fields'); }
 };
 
+// const authorizeUser = async ({ email }, id) => {
+//   const result = await User.findAll({
+//     where: { email: {$col: email} },
+//   });
+//   const userDoesNotExist = !result.length;
+//   if (userDoesNotExist) { throw throwError('INVALID_USER_INPUT', 'Invalid fields'); }
+// };
+
 const validateUserAlreadyRegistered = async ({ email }) => {
   const result = await User.findAll({
     where: { email },
@@ -20,5 +28,6 @@ const validateUserAlreadyRegistered = async ({ email }) => {
 
 module.exports = {
   validateUser,
+  // authorizeUser,
   validateUserAlreadyRegistered,
 };

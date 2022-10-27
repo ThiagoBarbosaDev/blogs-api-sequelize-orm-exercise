@@ -11,6 +11,7 @@ const errorCodes = {
   INVALID_DISPLAY_NAME: 400,
   INVALID_PASSWORD: 400,
   USER_ALREADY_EXISTS: 409,
+  UNAUTHORIZED_USER: 401,
 };
 
 module.exports = {
