@@ -18,7 +18,8 @@ const insert = async (req, res) => {
 };
 
 const destroy = async (req, res) => {
-
+const { token } = req;
+await userService.destroy(token);
 return res.status(204).end();
 };
 
