@@ -22,7 +22,14 @@ const update = async (req, res) => {
 const findByQuery = async (req, res) => {
   const { query } = req;
   const result = await postService.findByQuery(query);
-  res.status(200).json(result);
+  return res.status(200).json(result);
+};
+
+const destroy = async (req, res) => {
+  const { id } = req.params;
+  const { email } = req.token;
+  await postService.destroy(id, email);
+  return res.status(204).end();
 };
 
 module.exports = {
@@ -30,4 +37,5 @@ module.exports = {
   find,
   update,
   findByQuery,
+  destroy,
 };

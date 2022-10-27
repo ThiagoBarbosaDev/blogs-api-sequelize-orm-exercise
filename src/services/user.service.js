@@ -31,8 +31,11 @@ const insert = async (userPayload) => {
   return { token };
 };
 
+const destroy = async ({ email }) => User.destroy({ where: { email } });
+
 module.exports = {
   find,
   findAll,
   insert,
+  destroy,
 };

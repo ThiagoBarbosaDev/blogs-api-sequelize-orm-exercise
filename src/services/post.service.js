@@ -81,9 +81,20 @@ const findByQuery = async ({ q: query }) => BlogPost.findAll(
      }, 
   );
 
+  const destroy = async (id, tokenEmail) => {
+    console.log('0');
+    console.log(id, tokenEmail);
+    await validatePost(id);
+    console.log('1');
+    await validatePostAuthorization(id, tokenEmail);
+    console.log('2');
+    await BlogPost.destroy({ where: { id } });
+  };
+
 module.exports = {
   findAll,
   find,
   update,
   findByQuery,
+  destroy,
 };

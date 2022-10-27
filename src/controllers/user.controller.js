@@ -17,8 +17,14 @@ const insert = async (req, res) => {
   return res.status(201).json(response);
 };
 
+const destroy = async (req, res) => {
+
+return res.status(204).end();
+};
+
 module.exports = {
   findAll,
   insert,
   find,
+  destroy,
 };
